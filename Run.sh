@@ -1,2 +1,2 @@
 #!/bin/bash
-mono ./bin/DroneWar.exe  $@
+./bin/SpaceTraffic "$@"
