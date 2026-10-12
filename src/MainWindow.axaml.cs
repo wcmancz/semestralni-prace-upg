@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using System;
+using System.IO;
 
 namespace SpaceTraffic
 {
@@ -20,6 +21,28 @@ namespace SpaceTraffic
         public MainWindow(string scenario) : this()
         {
             //TODO: load scenario, or throw an exception if it does not exist
+            if(!scenario)
+            {
+                throw new Exception("Scenář neexistuje");
+                System.exit(0);
+            }
+
+            string[] lines = File.ReadAllLines(scenario);
+            foreach (string line in lines)
+            {
+                line = line.Trim();
+                if (line.StartsWith("[") && line.EndsWith("]"))
+                {
+                    continue
+                }
+                if (line.StartsWith("#"))
+                {
+                    continue
+                }
+                Console.WriteLine(line);
+                    
+            }
+            
         }
     }
 }

@@ -21,6 +21,6 @@ public partial class MainView: UserControl
         var rect = new Rect(Bounds.Size);
         context.FillRectangle(Brushes.DarkBlue, rect);
 
-	//TODO: vykreslení vesmirnych teles a transportnich lodi v aktualnim case
+	//TODO: vykreslenï¿½ vesmirnych teles a transportnich lodi v aktualnim case
     }
 }
