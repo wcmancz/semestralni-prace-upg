@@ -25,4 +25,11 @@
       <DependentUpon>MainView.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
+
+  <ItemGroup>
+	<None Include="..\data\**\*">
+		<Link>data\%(RecursiveDir)%(Filename)%(Extension)</Link>
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+  </ItemGroup>
 </Project>

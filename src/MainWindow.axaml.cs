@@ -21,25 +21,20 @@ namespace SpaceTraffic
         public MainWindow(string scenario) : this()
         {
             //TODO: load scenario, or throw an exception if it does not exist
-            if(!scenario)
-            {
-                throw new Exception("Scenář neexistuje");
-                System.exit(0);
-            }
 
             string[] lines = File.ReadAllLines(scenario);
             foreach (string line in lines)
             {
-                line = line.Trim();
-                if (line.StartsWith("[") && line.EndsWith("]"))
+                string radek = line.Trim();
+                if (radek.StartsWith("[") && radek.EndsWith("]"))
                 {
-                    continue
+                    continue;
                 }
                 if (line.StartsWith("#"))
                 {
-                    continue
+                    continue;
                 }
-                Console.WriteLine(line);
+                Console.WriteLine(radek);
                     
             }
             
