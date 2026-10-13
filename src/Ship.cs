@@ -2,22 +2,22 @@
 
 public class Ship
 {
-    private string name;
-    private double speed;
-    private SpaceBalls start;
-    private int capacity;
-    private int transfer_speed;
-    private string strategy;
-    private int max_loadtime;
+    private string Name { get; }
+    private double Speed { get; }
+    private SpaceBalls Start { get; }
+    private int Capacity { get; }
+    private int Transfer_speed { get; }
+    private string Strategy { get; }
+    private int Max_loadtime { get; }
 
     public Ship(string name, double speed, SpaceBalls start, int capacity, int transferSpeed, string strategy, int maxLoadtime)
     {
-        this.name = name;
-        this.speed = speed;
-        this.start = start;
-        this.capacity = capacity;
-        this.transfer_speed = transferSpeed;
-        this.strategy = strategy;
-        this.max_loadtime = maxLoadtime;
+        Name = name;
+        Speed = speed;
+        Start = start;
+        Capacity = capacity;
+        Transfer_speed = transferSpeed;
+        Strategy = strategy;
+        Max_loadtime = maxLoadtime;
     }
 }

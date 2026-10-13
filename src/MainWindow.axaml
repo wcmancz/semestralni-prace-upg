@@ -5,8 +5,8 @@
         xmlns:local="clr-namespace:SpaceTraffic;assembly=SpaceTraffic"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
         x:Class="SpaceTraffic.MainWindow"
-        Title="&lt;Osobni cislo &gt;  - Semestrální práce KIV/UPG 2026/2027">
+        Title="&lt;A25B0245P&gt;  - Semestrální práce KIV/UPG 2026/2027">
   <Grid>
-    <local:MainView/>
+    <local:MainView x:Name="View"/>
   </Grid>
 </Window>

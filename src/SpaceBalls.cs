@@ -1,30 +1,51 @@
-﻿namespace DefaultNamespace;
+﻿using System;
+
+namespace DefaultNamespace;
 
 public class SpaceBalls
 {
-    private string name;
-    private string type;
-    private double size;
-    private SpaceBalls parent_ball;
-    private double orbit_radius;
-    private double initial_angle;
-    private double angular_speed;
-    private int warehouse;
-    private int prod_min;
-    private int prod_max;
+    private string Name { get; }
+    private string Type { get; }
+    private double Size { get; }
+    private SpaceBalls? Parent_ball { get; set; }
+    private double Orbit_radius { get; }
+    private double Initial_angle { get; }
+    private double Angular_speed { get; }
+    private int Warehouse { get; set; }
+    private int Prod_min { get; }
+    private int Prod_max { get; }
 
-    public SpaceBalls(string name, string type, double size, SpaceBalls parent_ball, double orbit_radius, double initial_angle, double angular_speed, int warehouse, int prod_min, int prod_max)
+    public SpaceBalls(string name, string type, double size, double orbit_radius, double initial_angle, double angular_speed, int warehouse, int prod_min, int prod_max)
     {
-        this.name = name;
-        this.type = type;
-        this.size = size;
-        this.parent_ball = parent_ball;
-        this.orbit_radius = orbit_radius;
-        this.initial_angle = initial_angle;
-        this.angular_speed = angular_speed;
-        this.warehouse = warehouse;
-        this.prod_min = prod_min;
-        this.prod_max = prod_max;
+        Name = name;
+        Type = type;
+        Size = size;
+        Orbit_radius = orbit_radius;
+        Initial_angle = initial_angle;
+        Angular_speed = angular_speed;
+        Warehouse = warehouse;
+        Prod_min = prod_min;
+        Prod_max = prod_max;
     }
-    
+
+    public (double X, double Y) GetPositionAt(double time)
+    {
+        double angle = Initial_angle + Angular_speed * time;
+        double x = Orbit_radius * Math.Cos(angle);
+        double y = Orbit_radius * Math.Sin(angle);
+
+        if (Parent_ball != null)
+        {
+            var (px, py) = Parent_ball.GetPositionAt(time);
+            x += px;
+            y += py;
+        }
+        return (x, y);
+    }
+    public string GetName() => Name;
+    public double GetSize() => Size;
+    public string GetBallType() => Type;
+    public double GetOrbitRadius() => Orbit_radius;
+    public SpaceBalls? GetParent() => Parent_ball;
+    public void SetParent(SpaceBalls parent) => Parent_ball = parent;
 }

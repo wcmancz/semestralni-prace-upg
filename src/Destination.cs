@@ -2,14 +2,14 @@
 
 public class Destination
 {
-    private SpaceBalls source;
-    private SpaceBalls destination;
-    private int probability;
+    private SpaceBalls Source;
+    private SpaceBalls Dest;
+    private int Probability;
     
     public Destination(SpaceBalls sourcePlanet, SpaceBalls destPlanet, int prob)
     {
-        this.source = sourcePlanet;
-        this.destination = destPlanet;
-        this.probability = prob;
+        Source = sourcePlanet;
+        Dest = destPlanet;
+        Probability = prob;
     }
 }

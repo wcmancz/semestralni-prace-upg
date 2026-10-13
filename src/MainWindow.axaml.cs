@@ -1,11 +1,20 @@
 using Avalonia.Controls;
+using Avalonia.Metadata;
+using DefaultNamespace;
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 
 namespace SpaceTraffic
 {
     public partial class MainWindow : Window
     {
+
+        private readonly Dictionary<string, SpaceBalls> bodies = new();
+        private readonly List<Destination> dests = new();
+        private readonly List<Ship> ships = new();
+
         /// <summary>
         /// Initializes new MainWindow without any specified scenario
         /// </summary>
@@ -21,23 +30,81 @@ namespace SpaceTraffic
         public MainWindow(string scenario) : this()
         {
             //TODO: load scenario, or throw an exception if it does not exist
+            string path = Path.Combine(AppContext.BaseDirectory, "data", scenario);
 
-            string[] lines = File.ReadAllLines(scenario);
+            if (!File.Exists(path))
+            {
+                throw new FileNotFoundException($"Scénář '{scenario}' nebylo nalezeno");
+            }
+
+            LoadScenario(path);
+            View.SetData(bodies.Values, ships);
+            View.Start();
+        }
+
+        private void LoadScenario(string path)
+        {
+            var ci = CultureInfo.InvariantCulture;
+            var parents = new Dictionary<string, string>();
+            var destRows = new List<string[]>();
+            var shipRows = new List<string[]>();
+            string? section = null;
+
+            string[] lines = File.ReadAllLines(path);
+
             foreach (string line in lines)
             {
-                string radek = line.Trim();
-                if (radek.StartsWith("[") && radek.EndsWith("]"))
+                string fixedLine = line.Trim();
+
+                if (fixedLine.Length == 0 || fixedLine.StartsWith("#"))
                 {
                     continue;
                 }
-                if (line.StartsWith("#"))
+
+                if (fixedLine.StartsWith("[") && fixedLine.EndsWith("]"))
                 {
+                    section = fixedLine.Substring(1, fixedLine.Length - 2);
                     continue;
                 }
-                Console.WriteLine(radek);
-                    
+
+                string[] item = fixedLine.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries);
+
+                switch (section)
+                {
+                    case "BODIES":
+                        var body = new SpaceBalls(
+                            item[0],
+                            item[1],
+                            double.Parse(item[2], ci),
+                            double.Parse(item[4], ci),
+                            double.Parse(item[5], ci),
+                            double.Parse(item[6], ci),
+                            int.Parse(item[7], ci),
+                            int.Parse(item[8], ci),
+                            int.Parse(item[9], ci));
+                        bodies[body.GetName()] = body;
+                        parents[body.GetName()] = item[3];
+                        break;
+                    case "DESTINATIONS":
+                        destRows.Add(item);
+                        break;
+                    case "SHIPS":
+                        shipRows.Add(item);
+                        break;
+              
+                }
             }
-            
+            foreach (var (name, parentName) in parents)
+                if (parentName != "-")
+                    bodies[name].SetParent(bodies[parentName]);
+
+            foreach (var p in destRows)
+                dests.Add(new Destination(bodies[p[0]], bodies[p[1]], int.Parse(p[2], ci)));
+
+            foreach (var p in shipRows)
+                ships.Add(new Ship(p[0], double.Parse(p[1], ci), bodies[p[2]],
+                    int.Parse(p[3], ci), int.Parse(p[4], ci), p[5], int.Parse(p[6], ci)));
         }
+
     }
 }
