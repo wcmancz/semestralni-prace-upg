@@ -38,7 +38,7 @@ namespace SpaceTraffic
             }
 
             LoadScenario(path);
-            View.SetData(bodies.Values, ships);
+            View.SetData(bodies.Values, ships, dests);
             View.Start();
         }
 
@@ -98,12 +98,12 @@ namespace SpaceTraffic
                 if (parentName != "-")
                     bodies[name].SetParent(bodies[parentName]);
 
-            foreach (var p in destRows)
-                dests.Add(new Destination(bodies[p[0]], bodies[p[1]], int.Parse(p[2], ci)));
+            foreach (var item in destRows)
+                dests.Add(new Destination(bodies[item[0]], bodies[item[1]], int.Parse(item[2], ci)));
 
-            foreach (var p in shipRows)
-                ships.Add(new Ship(p[0], double.Parse(p[1], ci), bodies[p[2]],
-                    int.Parse(p[3], ci), int.Parse(p[4], ci), p[5], int.Parse(p[6], ci)));
+            foreach (var item in shipRows)
+                ships.Add(new Ship(item[0], double.Parse(item[1], ci), bodies[item[2]],
+                    int.Parse(item[3], ci), int.Parse(item[4], ci), Ship.ParseStrategy(item[5]), int.Parse(item[6], ci)));
         }
 
     }

@@ -28,9 +28,25 @@ public class SpaceBalls
         Prod_max = prod_max;
     }
 
+    public string GetName() => Name;
+    public double GetSize() => Size;
+    public string GetBallType() => Type;
+    public double GetOrbitRadius() => Orbit_radius;
+    public SpaceBalls? GetParent() => Parent_ball;
+    public int GetWarehouse() => Warehouse;
+    public void SetParent(SpaceBalls parent)
+    {
+        Parent_ball = parent;
+    }
+
+    public double GetMaxDistance()
+    {
+        return Orbit_radius + (Parent_ball?.GetMaxDistance() ?? 0);
+    }
+
     public (double X, double Y) GetPositionAt(double time)
     {
-        double angle = Initial_angle + Angular_speed * time;
+        double angle = (Initial_angle + Angular_speed * time) * Math.PI / 180.0;
         double x = Orbit_radius * Math.Cos(angle);
         double y = Orbit_radius * Math.Sin(angle);
 
@@ -42,10 +58,21 @@ public class SpaceBalls
         }
         return (x, y);
     }
-    public string GetName() => Name;
-    public double GetSize() => Size;
-    public string GetBallType() => Type;
-    public double GetOrbitRadius() => Orbit_radius;
-    public SpaceBalls? GetParent() => Parent_ball;
-    public void SetParent(SpaceBalls parent) => Parent_ball = parent;
+
+    public void Produce(Random rng)
+    {
+        Warehouse += rng.Next(Prod_min, Prod_max);
+    }
+
+    public void AddToWarehouse(int amount)
+    {
+        Warehouse += amount;
+    }
+
+    public int TakeFromWarehouse(int wanted)
+    {
+        int taken = Math.Min(wanted, Warehouse);
+        Warehouse -= taken;
+        return taken;
+    }
 }

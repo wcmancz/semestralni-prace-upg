@@ -12,4 +12,8 @@ public class Destination
         Dest = destPlanet;
         Probability = prob;
     }
+
+    public SpaceBalls GetSource() => Source;
+    public SpaceBalls GetDest() => Dest;
+    public int GetProbability() => Probability;
 }
