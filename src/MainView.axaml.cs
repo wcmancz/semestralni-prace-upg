@@ -25,7 +25,7 @@ public partial class MainView: UserControl
         objects = new SpaceObjects(labels);
     }
 
-    public void SetData(IEnumerable<SpaceBalls> bodies, IEnumerable<Ship> ships, IEnumerable<Destination> dests)
+    public void SetData(IEnumerable<SpaceBodies> bodies, IEnumerable<Ship> ships, IEnumerable<Destination> dests)
     {
         simulation = new TimeSimulation(bodies, ships, dests);
         InvalidateVisual();
@@ -67,7 +67,7 @@ public partial class MainView: UserControl
 
         var center = new Point(Bounds.Width / 2, Bounds.Height / 2);
         double scale = Math.Min(Bounds.Width, Bounds.Height) / 2 / simulation.FurthestOrbit;
-        double maxWarehouse = Math.Max(1, simulation.Bodies.Max(body => body.GetWarehouse()));
+        double maxWarehouse = Math.Max(1, simulation.Bodies.Max(body => body.GetWarehouse())*2);
 
         objects.DrawBodies(context, simulation.Bodies, simulation.Day, center, scale, maxWarehouse, simulation.SizeFactor);
         objects.DrawShips(context, simulation.Ships, center, scale);

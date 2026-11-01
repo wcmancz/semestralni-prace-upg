@@ -27,8 +27,8 @@ public class Ship
     private int Max_loadtime { get; }
 
     private State state = State.Loading;
-    private SpaceBalls current;
-    private SpaceBalls? target;
+    private SpaceBodies current;
+    private SpaceBodies? target;
     private int cargo = 0;
     private double x, y;
 
@@ -37,7 +37,7 @@ public class Ship
 
     private double dirX, dirY;
 
-    public Ship(string name, double speed, SpaceBalls start, int capacity, int transferSpeed, LoadingStrategy strategy, int maxLoadtime)
+    public Ship(string name, double speed, SpaceBodies start, int capacity, int transferSpeed, LoadingStrategy strategy, int maxLoadtime)
     {
         Name = name;
         Speed = speed;
@@ -89,7 +89,7 @@ public class Ship
         return total;
     }
 
-    public SpaceBalls? ChooseTarget(List<Destination> all, Random rng)
+    public SpaceBodies? ChooseTarget(List<Destination> all, Random rng)
     {
         var options = OptionsFromHere(all);
         if (options.Count == 0)
@@ -172,8 +172,8 @@ public class Ship
 
         bool finished = Strategy switch
         {
-            LoadingStrategy.Full => full,
-            LoadingStrategy.Immediate => full || taken < wanted,
+            LoadingStrategy.Full => full,                                       // pokud je loď plná
+            LoadingStrategy.Immediate => full || taken < wanted,                // pokud je plná nebo těleso už nemá kolik potřebuje 
             LoadingStrategy.MaxLoadtime => full || loadDays > Max_loadtime,
             _ => false
         };

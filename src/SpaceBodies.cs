@@ -2,12 +2,12 @@
 
 namespace DefaultNamespace;
 
-public class SpaceBalls
+public class SpaceBodies
 {
     private string Name { get; }
     private string Type { get; }
     private double Size { get; }
-    private SpaceBalls? Parent_ball { get; set; }
+    private SpaceBodies? Parent_ball { get; set; }
     private double Orbit_radius { get; }
     private double Initial_angle { get; }
     private double Angular_speed { get; }
@@ -15,7 +15,7 @@ public class SpaceBalls
     private int Prod_min { get; }
     private int Prod_max { get; }
 
-    public SpaceBalls(string name, string type, double size, double orbit_radius, double initial_angle, double angular_speed, int warehouse, int prod_min, int prod_max)
+    public SpaceBodies(string name, string type, double size, double orbit_radius, double initial_angle, double angular_speed, int warehouse, int prod_min, int prod_max)
     {
         Name = name;
         Type = type;
@@ -32,9 +32,9 @@ public class SpaceBalls
     public double GetSize() => Size;
     public string GetBallType() => Type;
     public double GetOrbitRadius() => Orbit_radius;
-    public SpaceBalls? GetParent() => Parent_ball;
+    public SpaceBodies? GetParent() => Parent_ball;
     public int GetWarehouse() => Warehouse;
-    public void SetParent(SpaceBalls parent)
+    public void SetParent(SpaceBodies parent)
     {
         Parent_ball = parent;
     }
@@ -61,7 +61,7 @@ public class SpaceBalls
 
     public void Produce(Random rng)
     {
-        Warehouse += rng.Next(Prod_min, Prod_max);
+        Warehouse += rng.Next(Prod_min, Prod_max + 1);
     }
 
     public void AddToWarehouse(int amount)

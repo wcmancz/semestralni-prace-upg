@@ -24,7 +24,7 @@ public class SpaceObjects
 
     public void DrawBodies(
         DrawingContext context, 
-        IEnumerable<SpaceBalls> objs, 
+        IEnumerable<SpaceBodies> objs, 
         double day, 
         Point center, 
         double scale, 

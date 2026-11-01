@@ -17,7 +17,7 @@ namespace SpaceTraffic
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 //process the parameters
-                var scenario = "complex";
+                var scenario = "default";
                 if (desktop.Args != null && desktop.Args.Length > 0)
                 {
                     scenario = desktop.Args[0];

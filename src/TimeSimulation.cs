@@ -8,7 +8,7 @@ namespace SpaceTraffic;
 
 public class TimeSimulation
 {
-    public List<SpaceBalls> Bodies { get; }
+    public List<SpaceBodies> Bodies { get; }
     public List<Ship> Ships { get; }
     public List<Destination> Destinations { get; }
 
@@ -25,7 +25,7 @@ public class TimeSimulation
     private double lastDay;
     private int lastDayInt;
 
-    public TimeSimulation(IEnumerable<SpaceBalls> bodies, IEnumerable<Ship> ships, IEnumerable<Destination> dests)
+    public TimeSimulation(IEnumerable<SpaceBodies> bodies, IEnumerable<Ship> ships, IEnumerable<Destination> dests)
     {
         Bodies = bodies.ToList();
         Ships = ships.ToList();

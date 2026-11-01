@@ -2,18 +2,18 @@
 
 public class Destination
 {
-    private SpaceBalls Source;
-    private SpaceBalls Dest;
+    private SpaceBodies Source;
+    private SpaceBodies Dest;
     private int Probability;
     
-    public Destination(SpaceBalls sourcePlanet, SpaceBalls destPlanet, int prob)
+    public Destination(SpaceBodies sourcePlanet, SpaceBodies destPlanet, int prob)
     {
         Source = sourcePlanet;
         Dest = destPlanet;
         Probability = prob;
     }
 
-    public SpaceBalls GetSource() => Source;
-    public SpaceBalls GetDest() => Dest;
+    public SpaceBodies GetSource() => Source;
+    public SpaceBodies GetDest() => Dest;
     public int GetProbability() => Probability;
 }

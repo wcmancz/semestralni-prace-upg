@@ -11,7 +11,7 @@ namespace SpaceTraffic
     public partial class MainWindow : Window
     {
 
-        private readonly Dictionary<string, SpaceBalls> bodies = new();
+        private readonly Dictionary<string, SpaceBodies> bodies = new();
         private readonly List<Destination> dests = new();
         private readonly List<Ship> ships = new();
 
@@ -72,7 +72,7 @@ namespace SpaceTraffic
                 switch (section)
                 {
                     case "BODIES":
-                        var body = new SpaceBalls(
+                        var body = new SpaceBodies(
                             item[0],
                             item[1],
                             double.Parse(item[2], ci),
