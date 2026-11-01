@@ -27,7 +27,7 @@ public class SpaceBodies
         Prod_min = prod_min;
         Prod_max = prod_max;
     }
-
+    // gettery setter
     public string GetName() => Name;
     public double GetSize() => Size;
     public string GetBallType() => Type;
@@ -38,12 +38,12 @@ public class SpaceBodies
     {
         Parent_ball = parent;
     }
-
+    // získání max. vzdálenosti
     public double GetMaxDistance()
     {
         return Orbit_radius + (Parent_ball?.GetMaxDistance() ?? 0);
     }
-
+    //získání pozice x, y v daném čase a pracuje s pozicí rodiče pokud ho má
     public (double X, double Y) GetPositionAt(double time)
     {
         double angle = (Initial_angle + Angular_speed * time) * Math.PI / 180.0;
@@ -58,7 +58,7 @@ public class SpaceBodies
         }
         return (x, y);
     }
-
+    // random jednotky
     public void Produce(Random rng)
     {
         Warehouse += rng.Next(Prod_min, Prod_max + 1);

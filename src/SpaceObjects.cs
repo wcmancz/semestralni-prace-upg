@@ -46,7 +46,7 @@ public class SpaceObjects
             {
                 var (px, py) = parent.GetPositionAt(day);
                 var orbit_position = new Point(center.X + px * scale, center.Y - py * scale);
-
+                // vykreslení orbitu
                 context.DrawEllipse(null, orbit_pen, orbit_position, planet_orbit_radius, planet_orbit_radius);
             }
 

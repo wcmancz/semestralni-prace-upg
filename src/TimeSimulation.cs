@@ -24,7 +24,7 @@ public class TimeSimulation
     private double dayOffset;
     private double lastDay;
     private int lastDayInt;
-
+    
     public TimeSimulation(IEnumerable<SpaceBodies> bodies, IEnumerable<Ship> ships, IEnumerable<Destination> dests)
     {
         Bodies = bodies.ToList();

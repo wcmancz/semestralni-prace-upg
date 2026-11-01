@@ -64,11 +64,11 @@ public partial class MainView: UserControl
         context.FillRectangle(Brushes.Black, rect);
 
         if (simulation == null) return;
-
+        // hodnoty pro následné vykreslení a jejich pozice
         var center = new Point(Bounds.Width / 2, Bounds.Height / 2);
         double scale = Math.Min(Bounds.Width, Bounds.Height) / 2 / simulation.FurthestOrbit;
         double maxWarehouse = Math.Max(1, simulation.Bodies.Max(body => body.GetWarehouse())*2);
-
+        // vykreslení
         objects.DrawBodies(context, simulation.Bodies, simulation.Day, center, scale, maxWarehouse, simulation.SizeFactor);
         objects.DrawShips(context, simulation.Ships, center, scale);
         labels.Draw(context, Bounds.Size);

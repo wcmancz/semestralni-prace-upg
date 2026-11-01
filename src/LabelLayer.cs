@@ -26,9 +26,10 @@ public class LabelLayer
     private const double BarGap = 4;
 
     public void Clear() => labels.Clear();
-
+    // přidání labelu a informace daného objektu
     public void Add(string text, Point anchor, double? ratio = null, IBrush? barBrush = null)
     {
+        // vytvoření formátovaného textu
         var formatted = new FormattedText(text, CultureInfo.InvariantCulture,
             FlowDirection.LeftToRight, Face, 11, Brushes.White);
 

@@ -58,6 +58,7 @@ public class Ship
     public bool IsUnloading() => state == State.Loading && !loadingPhase;
     public bool IsLoading() => state == State.Loading && loadingPhase;
 
+    // pro "parsování" ze stringu na Enum
     public static LoadingStrategy ParseStrategy(string text) => text.ToUpperInvariant() switch
     {
         "FULL" => LoadingStrategy.Full,
@@ -65,7 +66,7 @@ public class Ship
         "MAX_LOADTIME" => LoadingStrategy.MaxLoadtime,
         _ => throw new InvalidDataException($"Neznámá strategie '{text}'")
     };
-
+    // získání možností z daného tělesa
     private List<Destination> OptionsFromHere(List<Destination> options)
     {
         var result = new List<Destination>();
@@ -88,7 +89,7 @@ public class Ship
         }
         return total;
     }
-
+    // výběr cílového tělesa 
     public SpaceBodies? ChooseTarget(List<Destination> all, Random rng)
     {
         var options = OptionsFromHere(all);
@@ -109,7 +110,7 @@ public class Ship
         }
         return null;
     }
-
+    // getter x,y 
     public (double X, double Y) GetPosition() => (x, y);
 
     public void Update(double day, double dt)
@@ -126,6 +127,7 @@ public class Ship
 
     public void DailyStep(List<Destination> destinations, Random rng, double day)
     {
+        // letí: kontroluje jestli bude přistávat nebo počítat směr (za den)
         if (state == State.Flying)
         {
             var (tx, ty) = target!.GetPositionAt(day);
@@ -133,7 +135,7 @@ public class Ship
             double dy = ty - y;
             double dist = Math.Sqrt(dx * dx + dy * dy);
 
-            if (dist < Speed)
+            if (dist < Speed) // pokud doletí do dne tak přistane
             {
                 current = target;
                 target = null;
@@ -149,20 +151,20 @@ public class Ship
             return;
         }
 
-        int budget = Transfer_speed;
+        int budget = Transfer_speed; // limit
 
-        if (!loadingPhase)
+        if (!loadingPhase) // vyložení nákladu
         {
             int unload = Math.Min(budget, cargo);
             cargo -= unload;
             current.AddToWarehouse(unload);
             budget -= unload;
 
-            if (cargo > 0) return;
+            if (cargo > 0) return;   // ještě nemá vyloženo vše, ale den končí
             loadingPhase=true;
-            if (budget == 0) return;
+            if (budget == 0) return; // vyloženo
         }
-
+        // náklad
         int wanted = Math.Min(budget, Capacity - cargo);
         int taken = current.TakeFromWarehouse(wanted);
         cargo += taken;
@@ -180,7 +182,7 @@ public class Ship
 
         if (finished)
         {
-            target = ChooseTarget(destinations, rng);
+            target = ChooseTarget(destinations, rng); // losování cíle a odlet
             if (target != null)
             {
                 var (tx, ty) = target.GetPositionAt(day);
